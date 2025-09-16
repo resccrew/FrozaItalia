@@ -132,9 +132,46 @@ ul {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 20px 5%;
+    margin: 30px 0;
+    padding: 0 5%;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Фиксированная навигация по разделам */
+.sticky-nav {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 900;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sticky-nav.hidden {
+    transform: translateY(-100%);
+}
+
+.sticky-nav-item {
+    padding: 5px 15px;
+    margin: 0 5px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+}
+
+.sticky-nav-item.active {
+    background-color: #CE2B37;
+    color: white;
 }
 
 .category-btn {

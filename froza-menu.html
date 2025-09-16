@@ -49,6 +49,16 @@
             <option value="alkohol">Alkohol</option>
         </select>
     </div>
+    
+    <div class="sticky-nav hidden" id="sticky-nav">
+        <div class="sticky-nav-item" data-target="makarony">Makarony</div>
+        <div class="sticky-nav-item" data-target="salatki">Sałatki</div>
+        <div class="sticky-nav-item" data-target="gnocchi">Gnocchi</div>
+        <div class="sticky-nav-item" data-target="zupy">Zupy</div>
+        <div class="sticky-nav-item" data-target="pizza">Pizza</div>
+        <div class="sticky-nav-item" data-target="napoje">Napoje</div>
+        <div class="sticky-nav-item" data-target="alkohol">Alkohol</div>
+    </div>
 
     <section class="menu-section" id="makarony">
         <h2 class="section-title">MAKARONY</h2>
@@ -582,78 +592,142 @@
     </footer>
 
     <script>
-        // Простой скрипт для переключения категорий меню
         document.addEventListener('DOMContentLoaded', function() {
             const categoryButtons = document.querySelectorAll('.category-btn');
+            const mobileSelect = document.getElementById('mobile-category-select');
+            const menuSections = document.querySelectorAll('.menu-section');
+            const stickyNav = document.getElementById('sticky-nav');
+            const stickyNavItems = document.querySelectorAll('.sticky-nav-item');
             
+            // Функция для прокрутки к разделу
+            function scrollToSection(sectionId) {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    window.scrollTo({
+                        top: section.offsetTop - 120,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Обработчик для кнопок категорий
             categoryButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Удаляем класс active у всех кнопок
+                    // Удаляем активный класс у всех кнопок
                     categoryButtons.forEach(btn => btn.classList.remove('active'));
-                    // Добавляем класс active к нажатой кнопке
+                    // Добавляем активный класс нажатой кнопке
                     this.classList.add('active');
                     
-                    // Здесь можно добавить логику для отображения соответствующей категории меню
+                    // Прокручиваем к соответствующему разделу
+                    const targetSection = this.getAttribute('data-target');
+                    scrollToSection(targetSection);
+                    
+                    // Синхронизируем с мобильным селектом
+                    mobileSelect.value = targetSection;
                 });
             });
-        });
-    </script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Обработка кликов по кнопкам категорий
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        const mobileSelect = document.getElementById('mobile-category-select');
-        const menuSections = document.querySelectorAll('.menu-section');
-        
-        // Функция для прокрутки к разделу
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                window.scrollTo({
-                    top: section.offsetTop - 100,
-                    behavior: 'smooth'
-                });
-            }
-        }
-        
-        // Обработчик для кнопок категорий
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Удаляем активный класс у всех кнопок
-                categoryButtons.forEach(btn => btn.classList.remove('active'));
-                // Добавляем активный класс нажатой кнопке
-                this.classList.add('active');
-                
-                // Прокручиваем к соответствующему разделу
-                const targetSection = this.getAttribute('data-target');
+            
+            // Обработчик для мобильного селекта
+            mobileSelect.addEventListener('change', function() {
+                const targetSection = this.value;
                 scrollToSection(targetSection);
                 
-                // Синхронизируем с мобильным селектом
-                mobileSelect.value = targetSection;
+                // Синхронизируем с кнопками категорий
+                categoryButtons.forEach(btn => {
+                    if (btn.getAttribute('data-target') === targetSection) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
             });
-        });
-        
-        // Обработчик для мобильного селекта
-        mobileSelect.addEventListener('change', function() {
-            const targetSection = this.value;
             
-            // Синхронизируем с кнопками категорий
-            categoryButtons.forEach(btn => {
-                if (btn.getAttribute('data-target') === targetSection) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
+            // Обработчик для элементов фиксированной навигации
+            stickyNavItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetSection = this.getAttribute('data-target');
+                    scrollToSection(targetSection);
+                    
+                    // Синхронизируем с кнопками категорий и мобильным селектом
+                    categoryButtons.forEach(btn => {
+                        if (btn.getAttribute('data-target') === targetSection) {
+                            btn.classList.add('active');
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    });
+                    mobileSelect.value = targetSection;
+                });
+            });
+            
+            // Функция для определения текущего видимого раздела
+            function updateActiveSection() {
+                let currentSectionId = null;
+                const scrollPosition = window.scrollY + 150; // Добавляем смещение для лучшего определения
+                
+                // Находим текущий видимый раздел
+                menuSections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        currentSectionId = section.id;
+                    }
+                });
+                
+                // Обновляем активные элементы навигации
+                if (currentSectionId) {
+                    // Обновляем кнопки категорий
+                    categoryButtons.forEach(btn => {
+                        if (btn.getAttribute('data-target') === currentSectionId) {
+                            btn.classList.add('active');
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    });
+                    
+                    // Обновляем элементы фиксированной навигации
+                    stickyNavItems.forEach(item => {
+                        if (item.getAttribute('data-target') === currentSectionId) {
+                            item.classList.add('active');
+                        } else {
+                            item.classList.remove('active');
+                        }
+                    });
+                    
+                    // Обновляем мобильный селект
+                    mobileSelect.value = currentSectionId;
                 }
+            }
+            
+            // Показываем/скрываем фиксированную навигацию при прокрутке
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.scrollY;
+                
+                // Показываем фиксированную навигацию, когда прокрутили ниже основных категорий
+                if (scrollTop > 300) {
+                    stickyNav.classList.remove('hidden');
+                    
+                    // Скрываем при прокрутке вверх
+                    if (scrollTop < lastScrollTop) {
+                        stickyNav.style.transform = 'translateY(0)';
+                    } else {
+                        stickyNav.style.transform = 'translateY(-100%)';
+                    }
+                } else {
+                    stickyNav.classList.add('hidden');
+                }
+                
+                lastScrollTop = scrollTop;
+                
+                // Обновляем активный раздел
+                updateActiveSection();
             });
             
-            // Прокручиваем к выбранному разделу
-            scrollToSection(targetSection);
+            // Инициализируем активный раздел при загрузке
+            updateActiveSection();
         });
-        
-        // Инициализация: установка активной категории при загрузке страницы
-        const initialSection = 'makarony';
-        scrollToSection(initialSection);
-    });
-</script>
+    </script>
 </body>
 </html>
