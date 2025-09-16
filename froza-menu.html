@@ -59,7 +59,7 @@
                 btn.style.opacity = '0';
                 btn.style.transform = 'translateY(20px)';
                 setTimeout(() => {
-                    btn.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    btn.style.transition = 'opacity 1s ease, transform 1s ease';
                     btn.style.opacity = '1';
                     btn.style.transform = 'translateY(0)';
                 }, 100 + (index * 100)); // Задержка для каждой кнопки
@@ -69,7 +69,7 @@
             
             // Показываем все разделы меню сразу (цельный список)
             menuSections.forEach(section => {
-                section.style.transition = 'opacity 0.3s ease';
+                section.style.transition = 'opacity 0.8s ease';
                 section.style.display = 'block';
                 section.style.opacity = '1';
             });

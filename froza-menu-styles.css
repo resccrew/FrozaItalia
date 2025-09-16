@@ -16,7 +16,7 @@ body {
 a {
     text-decoration: none;
     color: inherit;
-    transition: all 0.3s ease;
+    transition: all 0.6s ease;
 }
 
 ul {
@@ -140,7 +140,7 @@ ul {
         background-color: rgba(255, 255, 255, 0.98);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         width: 100% !important;
-        transition: all 0.3s ease-in-out;
+        transition: all 0.8s ease-in-out;
         will-change: transform;
         backdrop-filter: blur(10px);
         display: flex;
@@ -281,7 +281,7 @@ ul {
     padding: 40px 5%;
     max-width: 1200px;
     margin: 0 auto;
-    animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .section-title {
@@ -320,7 +320,7 @@ ul {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
     margin-bottom: 20px;
     border-bottom: 1px solid #eee;
     opacity: 0;
