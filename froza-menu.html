@@ -95,15 +95,21 @@
             // IntersectionObserver для подсветки активной категории
             const observerOptions = {
                 root: null,
-                rootMargin: '-120px 0px -60% 0px',
-                threshold: 0.1
+                rootMargin: '-120px 0px -40% 0px',
+                threshold: 0.05
             };
             function onSectionIntersect(entries) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const sectionId = entry.target.id;
+                        console.log("Видимый раздел:", sectionId); // Для отладки
                         categoryButtons.forEach(btn => {
-                            btn.classList.toggle('active', btn.getAttribute('data-target') === sectionId);
+                            const targetId = btn.getAttribute('data-target');
+                            if (targetId === sectionId) {
+                                btn.classList.add('active');
+                            } else {
+                                btn.classList.remove('active');
+                            }
                         });
                         centerActiveButton();
                     }
