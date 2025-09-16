@@ -20,13 +20,9 @@
             <button class="category-btn" data-target="alkohol">Alkohol</button>
         </div>
     </div>
-
-    <div class="hero-banner">
-        <img src="IMG22.JPG" alt="Froza Italia Storefront" class="hero-image">
-        <div class="hero-content">
-            <h1>Froza Italia</h1>
-            <p></p>
-        </div>
+    
+    <div class="full-width-image">
+        <img src="IMG_8467-2.JPG" alt="Froza Italia" class="full-size-image">
     </div>
 
     <script>
@@ -93,31 +89,13 @@
             }
             const sectionObserver = new IntersectionObserver(onSectionIntersect, observerOptions);
             
-            // IntersectionObserver для анимации появления карточек с едой
-            const itemObserverOptions = {
-                root: null,
-                rootMargin: '0px 0px -100px 0px',
-                threshold: 0.1
-            };
-            function onItemIntersect(entries, observer) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Добавляем минимальную задержку для каждой карточки
-                        const item = entry.target;
-                        const delay = Array.from(item.parentNode.children).indexOf(item) * 5;
-                        setTimeout(() => {
-                            item.classList.add('animate');
-                        }, delay);
-                        // Отключаем наблюдение после анимации
-                        observer.unobserve(item);
-                    }
-                });
-            }
-            const itemObserver = new IntersectionObserver(onItemIntersect, itemObserverOptions);
+            // Отключаем анимацию при пролистывании
             menuSections.forEach(section => sectionObserver.observe(section));
             
-            // Запускаем наблюдение за всеми карточками меню
-            menuItems.forEach(item => itemObserver.observe(item));
+            // Сразу показываем все карточки меню без анимации
+            menuItems.forEach(item => {
+                item.classList.add('animate');
+            });
             
             // Клик по категории — плавная прокрутка
             categoryButtons.forEach(button => {
