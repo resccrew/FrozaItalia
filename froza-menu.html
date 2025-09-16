@@ -10,14 +10,6 @@
 <body>
     <div class="menu-categories">
         <div class="menu-title">MENU</div>
-        <div class="category-nav-arrows">
-            <div class="category-arrow left-arrow" id="scrollLeft">
-                <i class="fas fa-chevron-left"></i>
-            </div>
-            <div class="category-arrow right-arrow" id="scrollRight">
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        </div>
         <div class="category-container">
             <button class="category-btn active" data-target="makarony">Makarony</button>
             <button class="category-btn" data-target="salatki">Sałatki</button>
@@ -44,23 +36,7 @@
             const categoryContainer = document.querySelector('.category-container');
             const menuCategories = document.querySelector('.menu-categories');
             const menuSections = document.querySelectorAll('.menu-section');
-            const scrollLeftBtn = document.getElementById('scrollLeft');
-            const scrollRightBtn = document.getElementById('scrollRight');
-            
-            // Обработка нажатий на стрелки
-            scrollLeftBtn.addEventListener('click', function() {
-                categoryContainer.scrollBy({
-                    left: -150,
-                    behavior: 'smooth'
-                });
-            });
-            
-            scrollRightBtn.addEventListener('click', function() {
-                categoryContainer.scrollBy({
-                    left: 150,
-                    behavior: 'smooth'
-                });
-            });
+
             
             // Функция для центрирования активной кнопки
             function centerActiveButton() {
@@ -88,29 +64,7 @@
                 }, 100 + (index * 100)); // Задержка для каждой кнопки
             });
             
-            // Обновление видимости стрелок
-            function updateArrowsVisibility() {
-                const scrolledLeft = categoryContainer.scrollLeft;
-                const maxScrollLeft = categoryContainer.scrollWidth - categoryContainer.clientWidth;
-                
-                // Показываем/скрываем левую стрелку
-                if (scrolledLeft > 10) {
-                    scrollLeftBtn.style.opacity = '1';
-                } else {
-                    scrollLeftBtn.style.opacity = '0.5';
-                }
-                
-                // Показываем/скрываем правую стрелку
-                if (scrolledLeft >= maxScrollLeft - 10) {
-                    scrollRightBtn.style.opacity = '0.5';
-                } else {
-                    scrollRightBtn.style.opacity = '1';
-                }
-            }
-            
-            categoryContainer.addEventListener('scroll', updateArrowsVisibility);
-            window.addEventListener('resize', updateArrowsVisibility);
-            updateArrowsVisibility();
+
             
             // Показываем все разделы меню сразу (цельный список)
             menuSections.forEach(section => {
