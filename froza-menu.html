@@ -10,13 +10,23 @@
 <body>
     <div class="menu-categories">
         <div class="menu-title">MENU</div>
-        <button class="category-btn active" data-target="makarony">Makarony</button>
-        <button class="category-btn" data-target="salatki">Sałatki</button>
-        <button class="category-btn" data-target="gnocchi">Gnocchi</button>
-        <button class="category-btn" data-target="zupy">Zupy</button>
-        <button class="category-btn" data-target="pizza">Pizza</button>
-        <button class="category-btn" data-target="napoje">Napoje</button>
-        <button class="category-btn" data-target="alkohol">Alkohol</button>
+        <div class="category-nav-arrows">
+            <div class="category-arrow left-arrow" id="scrollLeft">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="category-arrow right-arrow" id="scrollRight">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+        <div class="category-container">
+            <button class="category-btn active" data-target="makarony">Makarony</button>
+            <button class="category-btn" data-target="salatki">Sałatki</button>
+            <button class="category-btn" data-target="gnocchi">Gnocchi</button>
+            <button class="category-btn" data-target="zupy">Zupy</button>
+            <button class="category-btn" data-target="pizza">Pizza</button>
+            <button class="category-btn" data-target="napoje">Napoje</button>
+            <button class="category-btn" data-target="alkohol">Alkohol</button>
+        </div>
     </div>
 
     <div class="hero-banner">
@@ -31,18 +41,36 @@
         // Анимация появления кнопок категорий при загрузке
         document.addEventListener('DOMContentLoaded', function() {
             const categoryButtons = document.querySelectorAll('.category-btn');
+            const categoryContainer = document.querySelector('.category-container');
             const menuCategories = document.querySelector('.menu-categories');
             const menuSections = document.querySelectorAll('.menu-section');
+            const scrollLeftBtn = document.getElementById('scrollLeft');
+            const scrollRightBtn = document.getElementById('scrollRight');
+            
+            // Обработка нажатий на стрелки
+            scrollLeftBtn.addEventListener('click', function() {
+                categoryContainer.scrollBy({
+                    left: -150,
+                    behavior: 'smooth'
+                });
+            });
+            
+            scrollRightBtn.addEventListener('click', function() {
+                categoryContainer.scrollBy({
+                    left: 150,
+                    behavior: 'smooth'
+                });
+            });
             
             // Функция для центрирования активной кнопки
             function centerActiveButton() {
                 const activeBtn = document.querySelector('.category-btn.active');
-                if (activeBtn && window.innerWidth <= 768) {
-                    const containerWidth = menuCategories.offsetWidth;
+                if (activeBtn) {
+                    const containerWidth = categoryContainer.offsetWidth;
                     const btnLeft = activeBtn.offsetLeft;
                     const btnWidth = activeBtn.offsetWidth;
                     const scrollLeft = btnLeft - (containerWidth / 2) + (btnWidth / 2);
-                    menuCategories.scrollTo({
+                    categoryContainer.scrollTo({
                         left: scrollLeft,
                         behavior: 'smooth'
                     });
@@ -60,25 +88,29 @@
                 }, 100 + (index * 100)); // Задержка для каждой кнопки
             });
             
-            // Центрирование активной кнопки на мобильных устройствах
-            function updateEdgeFades() {
-                if (window.innerWidth > 768) return; // только для мобильных
-                const scrolledLeft = menuCategories.scrollLeft;
-                const maxScrollLeft = menuCategories.scrollWidth - menuCategories.clientWidth;
+            // Обновление видимости стрелок
+            function updateArrowsVisibility() {
+                const scrolledLeft = categoryContainer.scrollLeft;
+                const maxScrollLeft = categoryContainer.scrollWidth - categoryContainer.clientWidth;
+                
+                // Показываем/скрываем левую стрелку
                 if (scrolledLeft > 10) {
-                    menuCategories.classList.add('show-left');
+                    scrollLeftBtn.style.opacity = '1';
                 } else {
-                    menuCategories.classList.remove('show-left');
+                    scrollLeftBtn.style.opacity = '0.5';
                 }
+                
+                // Показываем/скрываем правую стрелку
                 if (scrolledLeft >= maxScrollLeft - 10) {
-                    menuCategories.classList.add('hide-right');
+                    scrollRightBtn.style.opacity = '0.5';
                 } else {
-                    menuCategories.classList.remove('hide-right');
+                    scrollRightBtn.style.opacity = '1';
                 }
             }
-            menuCategories.addEventListener('scroll', updateEdgeFades);
-            window.addEventListener('resize', updateEdgeFades);
-            updateEdgeFades();
+            
+            categoryContainer.addEventListener('scroll', updateArrowsVisibility);
+            window.addEventListener('resize', updateArrowsVisibility);
+            updateArrowsVisibility();
             
             // Показываем все разделы меню сразу (цельный список)
             menuSections.forEach(section => {
@@ -100,6 +132,7 @@
                         categoryButtons.forEach(btn => {
                             btn.classList.toggle('active', btn.getAttribute('data-target') === sectionId);
                         });
+                        centerActiveButton();
                     }
                 });
             }
@@ -131,21 +164,14 @@
             setTimeout(centerActiveButton, 500);
             
             // Центрировать при изменении размера окна
-            window.addEventListener('resize', centerActiveButton);
+            window.addEventListener('resize', function() {
+                centerActiveButton();
+                updateArrowsVisibility();
+            });
         });
     </script>
     
-    <div class="mobile-menu-toggle">
-        <select id="mobile-category-select" class="mobile-category-select">
-            <option value="makarony">Makarony</option>
-            <option value="salatki">Sałatki</option>
-            <option value="gnocchi">Gnocchi</option>
-            <option value="zupy">Zupy</option>
-            <option value="pizza">Pizza</option>
-            <option value="napoje">Napoje</option>
-            <option value="alkohol">Alkohol</option>
-        </select>
-    </div>
+    <!-- Блок mobile-menu-toggle удален по запросу пользователя -->
     
     <!-- Нижний бар удален по запросу пользователя -->
 

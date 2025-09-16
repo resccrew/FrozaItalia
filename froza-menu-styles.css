@@ -69,9 +69,10 @@ ul {
 
 /* Категории меню - улучшенный современный стиль */
 .menu-categories {
+    position: relative;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
     gap: 15px;
     margin: 0;
     padding: 15px 5%;
@@ -86,84 +87,150 @@ ul {
     left: 0;
     right: 0;
     z-index: 1001;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
 }
 
 .menu-title {
     color: red;
     text-align: center;
     font-weight: bold;
-    font-size: 15px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    margin-bottom: 15px;
     font-family: 'Montserrat', sans-serif;
     width: 100%;
+    letter-spacing: 1px;
 }
 
 .menu-categories::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
 }
 
+/* Стрелки для навигации по категориям */
+.category-nav-arrows {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 1002;
+    padding: 0 10px;
+}
+
+.category-arrow {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.category-arrow:hover {
+    background-color: #CE2B37;
+    color: white;
+}
+
+.category-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.category-container::-webkit-scrollbar {
+    display: none;
+}
+
 /* Медиа-запросы для мобильных устройств */
 @media (max-width: 768px) {
-    /* Градиентные затухания по краям для индикации прокрутки */
+    /* Улучшенные стили для мобильного меню категорий */
     .menu-categories {
         position: fixed;
-        top: 0; /* Размещаем в самом верху */
+        top: 0;
         left: 0;
         right: 0;
         max-width: 100%;
         margin: 0;
         border-radius: 0;
-        padding: 10px 15px;
-        z-index: 999; /* Ниже, чем у шапки сайта */
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        white-space: nowrap;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        scroll-snap-type: x mandatory; /* Для плавной прокрутки с остановкой на элементах */
+        padding: 10px 5px;
+        z-index: 999;
+        background-color: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         width: 100%;
         transition: all 0.3s ease-in-out;
         will-change: transform;
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .menu-title {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #CE2B37;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+    
+    .category-container {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
+        padding: 5px 0;
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
     }
     
-    .menu-categories::before,
-    .menu-categories::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 25px;
-        pointer-events: none;
-        z-index: 1;
-        transition: opacity 0.3s ease;
+    .category-nav-arrows {
+        width: calc(100% - 20px);
+        top: 60%;
     }
     
-    .menu-categories::before {
-        left: 0;
-        background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
-        opacity: 0;
+    .category-arrow {
+        width: 28px;
+        height: 28px;
+        opacity: 0.8;
+        font-size: 12px;
     }
-    
-    .menu-categories::after {
-        right: 0;
-        background: linear-gradient(to left, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
-        opacity: 1;
-    }
-    
-    .menu-categories.show-left::before { opacity: 1; }
-    .menu-categories.hide-right::after { opacity: 0; }
     
     .category-btn {
         padding: 8px 16px;
         font-size: 14px;
-        margin: 0 4px;
-        scroll-snap-align: center; /* Для плавной прокрутки с остановкой на элементах */
+        margin: 0 3px;
+        scroll-snap-align: center;
+        border-radius: 25px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        flex-shrink: 0;
     }
     
     .category-btn.active {
-        box-shadow: 0 2px 8px rgba(206, 43, 55, 0.3);
+        box-shadow: 0 3px 10px rgba(206, 43, 55, 0.4);
         transform: translateY(-2px);
+        background-color: #CE2B37;
+        color: white;
     }
     
     .hero-banner {
@@ -196,12 +263,12 @@ ul {
 /* Удалено: Фиксированная навигация по разделам */
 
 .category-btn {
-    padding: 10px 24px;
+    padding: 8px 20px;
     border: none;
     border-radius: 30px;
     background-color: #f5f5f5;
     color: #333;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -246,29 +313,7 @@ ul {
     border-color: #ccc;
 }
 
-/* Мобильное меню категорий */
-.mobile-menu-toggle {
-    display: none;
-    padding: 15px 5%;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.mobile-category-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    color: #333;
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 16px;
-}
+/* Стили для мобильного меню удалены, так как блок mobile-menu-toggle больше не используется */
 
 /* Секция меню */
 .menu-section {
