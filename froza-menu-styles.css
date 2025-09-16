@@ -320,10 +320,10 @@ ul {
     justify-content: space-between;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eee;.menu-item {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
 .menu-item.animate {
