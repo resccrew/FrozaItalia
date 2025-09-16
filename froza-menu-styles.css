@@ -126,80 +126,171 @@ ul {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Категории меню */
+/* Категории меню - улучшенный современный стиль */
 .menu-categories {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
     margin: 30px 0;
-    padding: 0 5%;
+    padding: 15px 5%;
     background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 5px;
-    scrollbar-width: thin;
-}
-
-/* Фиксированная навигация по разделам */
-.sticky-nav {
-    position: fixed;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    position: -webkit-sticky; /* Для Safari */
+    position: sticky;
     top: 70px;
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.95);
     z-index: 900;
-    padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(0) !important;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.3s ease-in-out;
+    will-change: transform; /* Оптимизация производительности */
+    backdrop-filter: blur(5px); /* Эффект размытия фона */
+    background-color: rgba(255, 255, 255, 0.95); /* Полупрозрачный фон */
+    scroll-behavior: smooth; /* Плавная прокрутка */
 }
 
-.sticky-nav.hidden {
-    transform: translateY(-100%);
+.menu-categories::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
-.sticky-nav-item {
-    padding: 5px 15px;
-    margin: 0 5px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 20px;
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    /* Градиентные затухания по краям для индикации прокрутки */
+    .menu-categories {
+        position: fixed;
+        /* existing styles remain */
+    }
+    .menu-categories::before,
+    .menu-categories::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 25px;
+        pointer-events: none;
+        z-index: 1;
+        transition: opacity 0.3s ease;
+    }
+    .menu-categories::before {
+        left: 0;
+        background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
+        opacity: 0;
+    }
+    .menu-categories::after {
+        right: 0;
+        background: linear-gradient(to left, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
+        opacity: 1;
+    }
+    .menu-categories.show-left::before { opacity: 1; }
+    .menu-categories.hide-right::after { opacity: 0; }
+    .menu-categories {
+        position: fixed;
+        top: 70px; /* Под шапкой сайта */
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        padding: 10px 15px;
+        z-index: 999; /* Ниже, чем у шапки сайта */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        white-space: nowrap;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        scroll-snap-type: x mandatory; /* Для плавной прокрутки с остановкой на элементах */
+    }
+    
+    .category-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+        margin: 0 4px;
+        scroll-snap-align: center; /* Для плавной прокрутки с остановкой на элементах */
+    }
+    
+    .category-btn.active {
+        box-shadow: 0 2px 8px rgba(206, 43, 55, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    .hero-banner {
+        margin-top: 120px; /* Компенсация фиксированной шапки и меню категорий */
+        height: 250px; /* Уменьшаем высоту баннера на мобильных */
+    }
+    
+    .site-header {
+        padding: 10px 5%;
+    }
 }
 
-.sticky-nav-item.active {
-    background-color: #CE2B37;
-    color: white;
+/* Дополнительные стили для очень маленьких экранов */
+@media (max-width: 480px) {
+    .category-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+        margin: 0 3px;
+    }
+    
+    .site-header {
+        padding: 8px 4%;
+    }
+    
+    .logo a {
+        font-size: 20px;
+    }
 }
+
+/* Удалено: Фиксированная навигация по разделам */
 
 .category-btn {
-    padding: 8px 20px;
-    border: 1px solid #ddd;
+    padding: 10px 24px;
+    border: none;
     border-radius: 30px;
-    background-color: transparent;
+    background-color: #f5f5f5;
     color: #333;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.category-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0;
+    color: #CE2B37;
+}
+
+.category-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.6s ease;
+}
+
+.category-btn:hover::before {
+    left: 100%;
 }
 
 .category-btn.active {
     background-color: #CE2B37; /* Красный цвет итальянского флага */
     color: #fff;
     border-color: #CE2B37;
+    box-shadow: 0 4px 10px rgba(206, 43, 55, 0.3);
     transform: scale(1.05);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .category-btn:hover:not(.active) {
@@ -417,10 +508,14 @@ ul {
     .menu-categories {
         display: flex;
         overflow-x: auto;
-        justify-content: flex-start;
-        padding: 10px 5px;
-        margin: 10px 0;
+        justify-content: center;
+        padding: 12px 10px;
+        margin: 15px auto;
         -webkit-overflow-scrolling: touch;
+        max-width: 95%;
+        border-radius: 6px;
+        white-space: nowrap;
+        flex-wrap: nowrap;
     }
     
     .mobile-menu-toggle {
@@ -450,8 +545,12 @@ ul {
         flex: 0 0 auto;
         white-space: nowrap;
         font-size: 14px;
-        padding: 6px 12px;
+        padding: 8px 16px;
         flex-shrink: 0;
+        margin: 0 4px;
+        border-radius: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
     
     .menu-section {
@@ -539,8 +638,21 @@ ul {
     }
     
     .category-btn {
-        font-size: 12px;
-        padding: 6px 15px;
+        font-size: 13px;
+        padding: 8px 16px;
+        margin: 0 3px;
+    }
+    
+    .menu-categories {
+        padding: 10px 5px;
+        justify-content: flex-start;
+        overflow-x: scroll;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+    
+    .menu-categories::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
     }
     
     .menu-item {
@@ -600,6 +712,21 @@ ul {
     
     .item-description {
         font-size: 12px;
+    }
+    
+    .menu-categories {
+        max-width: 100%;
+        padding: 8px 5px;
+        margin: 10px auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+    }
+    
+    .category-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+        margin: 0 2px;
+        scroll-snap-align: center;
     }
     
     .item-price {

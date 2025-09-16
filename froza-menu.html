@@ -38,6 +38,72 @@
         <button class="category-btn" data-target="alkohol">Alkohol</button>
     </div>
     
+    <script>
+        // Анимация появления кнопок категорий при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const menuCategories = document.querySelector('.menu-categories');
+            
+            // Анимация появления кнопок
+            categoryBtns.forEach((btn, index) => {
+                btn.style.opacity = '0';
+                btn.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    btn.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    btn.style.opacity = '1';
+                    btn.style.transform = 'translateY(0)';
+                }, 100 + (index * 100)); // Задержка для каждой кнопки
+            });
+            
+            // Центрирование активной кнопки на мобильных устройствах
+            function updateEdgeFades() {
+                if (window.innerWidth > 768) return; // только для мобильных
+                const scrolledLeft = menuCategories.scrollLeft;
+                const maxScrollLeft = menuCategories.scrollWidth - menuCategories.clientWidth;
+                if (scrolledLeft > 10) {
+                    menuCategories.classList.add('show-left');
+                } else {
+                    menuCategories.classList.remove('show-left');
+                }
+                if (scrolledLeft >= maxScrollLeft - 10) {
+                    menuCategories.classList.add('hide-right');
+                } else {
+                    menuCategories.classList.remove('hide-right');
+                }
+            }
+            menuCategories.addEventListener('scroll', updateEdgeFades);
+            window.addEventListener('resize', updateEdgeFades);
+            updateEdgeFades();
+            function centerActiveButton() {
+                const activeBtn = document.querySelector('.category-btn.active');
+                if (activeBtn && window.innerWidth <= 768) {
+                    const containerWidth = menuCategories.offsetWidth;
+                    const btnLeft = activeBtn.offsetLeft;
+                    const btnWidth = activeBtn.offsetWidth;
+                    const scrollLeft = btnLeft - (containerWidth / 2) + (btnWidth / 2);
+                    
+                    menuCategories.scrollTo({
+                        left: scrollLeft,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Центрировать при клике на кнопку
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    setTimeout(centerActiveButton, 100);
+                });
+            });
+            
+            // Центрировать при загрузке страницы
+            setTimeout(centerActiveButton, 500);
+            
+            // Центрировать при изменении размера окна
+            window.addEventListener('resize', centerActiveButton);
+        });
+    </script>
+    
     <div class="mobile-menu-toggle">
         <select id="mobile-category-select" class="mobile-category-select">
             <option value="makarony">Makarony</option>
@@ -50,15 +116,7 @@
         </select>
     </div>
     
-    <div class="sticky-nav" id="sticky-nav">
-        <div class="sticky-nav-item" data-target="makarony">Makarony</div>
-        <div class="sticky-nav-item" data-target="salatki">Sałatki</div>
-        <div class="sticky-nav-item" data-target="gnocchi">Gnocchi</div>
-        <div class="sticky-nav-item" data-target="zupy">Zupy</div>
-        <div class="sticky-nav-item" data-target="pizza">Pizza</div>
-        <div class="sticky-nav-item" data-target="napoje">Napoje</div>
-        <div class="sticky-nav-item" data-target="alkohol">Alkohol</div>
-    </div>
+    <!-- Нижний бар удален по запросу пользователя -->
 
     <section class="menu-section" id="makarony">
         <h2 class="section-title">MAKARONY</h2>
@@ -598,6 +656,7 @@
             const menuSections = document.querySelectorAll('.menu-section');
             const stickyNav = document.getElementById('sticky-nav');
             const stickyNavItems = document.querySelectorAll('.sticky-nav-item');
+            const menuCategories = document.querySelector('.menu-categories');
             
             // Добавляем плавные переходы для всех секций меню
             menuSections.forEach(section => {
@@ -605,6 +664,9 @@
                 section.style.display = 'none';
                 section.style.opacity = '0';
             });
+            
+            // Добавляем плавные переходы для меню категорий
+            menuCategories.style.transition = 'opacity 0.3s ease, transform 0.3s ease, padding 0.2s ease';
             
             // Показываем первый раздел по умолчанию
             const defaultSection = document.getElementById('makarony');
@@ -660,6 +722,12 @@
                     categoryButtons.forEach(btn => btn.classList.remove('active'));
                     // Добавляем активный класс нажатой кнопке
                     this.classList.add('active');
+                    
+                    // Добавляем анимацию нажатия
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
                     
                     // Получаем целевой раздел
                     const targetSection = this.getAttribute('data-target');
@@ -756,7 +824,33 @@
             
             // Используем throttle для оптимизации обработчика прокрутки
             let scrollTimeout;
+            let lastScrollTop = 0;
+            
             window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Анимация для меню категорий при прокрутке
+                if (scrollTop > 300) {
+                    menuCategories.style.opacity = '0.95';
+                    menuCategories.style.transform = 'translateY(0)';
+                    
+                    if (scrollTop > lastScrollTop) {
+                        // Прокрутка вниз - меню становится компактнее
+                        menuCategories.style.padding = '10px 5%';
+                    } else {
+                        // Прокрутка вверх - меню возвращается к нормальному размеру
+                        menuCategories.style.padding = '15px 5%';
+                    }
+                } else {
+                    // Вверху страницы - нормальное отображение
+                    menuCategories.style.opacity = '1';
+                    menuCategories.style.transform = 'translateY(0)';
+                    menuCategories.style.padding = '15px 5%';
+                }
+                
+                lastScrollTop = scrollTop;
+                
+                // Обновление активного раздела с оптимизацией
                 if (!scrollTimeout) {
                     scrollTimeout = setTimeout(() => {
                         updateActiveSection();
