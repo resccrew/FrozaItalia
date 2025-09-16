@@ -50,7 +50,7 @@
         </select>
     </div>
     
-    <div class="sticky-nav hidden" id="sticky-nav">
+    <div class="sticky-nav" id="sticky-nav">
         <div class="sticky-nav-item" data-target="makarony">Makarony</div>
         <div class="sticky-nav-item" data-target="salatki">Sałatki</div>
         <div class="sticky-nav-item" data-target="gnocchi">Gnocchi</div>
@@ -700,26 +700,9 @@
                 }
             }
             
-            // Показываем/скрываем фиксированную навигацию при прокрутке
-            let lastScrollTop = 0;
+            // Обновляем активный раздел при прокрутке
             window.addEventListener('scroll', function() {
                 const scrollTop = window.scrollY;
-                
-                // Показываем фиксированную навигацию, когда прокрутили ниже основных категорий
-                if (scrollTop > 300) {
-                    stickyNav.classList.remove('hidden');
-                    
-                    // Скрываем при прокрутке вверх
-                    if (scrollTop < lastScrollTop) {
-                        stickyNav.style.transform = 'translateY(0)';
-                    } else {
-                        stickyNav.style.transform = 'translateY(-100%)';
-                    }
-                } else {
-                    stickyNav.classList.add('hidden');
-                }
-                
-                lastScrollTop = scrollTop;
                 
                 // Обновляем активный раздел
                 updateActiveSection();
