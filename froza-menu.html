@@ -36,6 +36,7 @@
             const categoryContainer = document.querySelector('.category-container');
             const menuCategories = document.querySelector('.menu-categories');
             const menuSections = document.querySelectorAll('.menu-section');
+            const menuItems = document.querySelectorAll('.menu-item');
 
             
             // Функция для центрирования активной кнопки
@@ -91,7 +92,32 @@
                 });
             }
             const sectionObserver = new IntersectionObserver(onSectionIntersect, observerOptions);
+            
+            // IntersectionObserver для анимации появления карточек с едой
+            const itemObserverOptions = {
+                root: null,
+                rootMargin: '0px 0px -100px 0px',
+                threshold: 0.1
+            };
+            function onItemIntersect(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Добавляем небольшую задержку для каждой карточки
+                        const item = entry.target;
+                        const delay = Array.from(item.parentNode.children).indexOf(item) * 100;
+                        setTimeout(() => {
+                            item.classList.add('animate');
+                        }, delay);
+                        // Отключаем наблюдение после анимации
+                        observer.unobserve(item);
+                    }
+                });
+            }
+            const itemObserver = new IntersectionObserver(onItemIntersect, itemObserverOptions);
             menuSections.forEach(section => sectionObserver.observe(section));
+            
+            // Запускаем наблюдение за всеми карточками меню
+            menuItems.forEach(item => itemObserver.observe(item));
             
             // Клик по категории — плавная прокрутка
             categoryButtons.forEach(button => {
