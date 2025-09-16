@@ -143,6 +143,15 @@
             // Центрировать при загрузке страницы
             setTimeout(centerActiveButton, 500);
             
+            // Функция для проверки видимости стрелок прокрутки
+            function updateArrowsVisibility() {
+                const container = document.querySelector('.category-container');
+                // Проверка необходимости прокрутки
+                const hasHorizontalScroll = container.scrollWidth > container.clientWidth;
+                // Здесь можно добавить логику отображения стрелок, если они нужны
+                console.log("Horizontal scroll needed:", hasHorizontalScroll);
+            }
+            
             // Центрировать при изменении размера окна
             window.addEventListener('resize', function() {
                 centerActiveButton();
