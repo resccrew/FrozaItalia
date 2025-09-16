@@ -104,7 +104,7 @@
                     if (entry.isIntersecting) {
                         // Добавляем минимальную задержку для каждой карточки
                         const item = entry.target;
-                        const delay = Array.from(item.parentNode.children).indexOf(item) * 25;
+                        const delay = Array.from(item.parentNode.children).indexOf(item) * 5;
                         setTimeout(() => {
                             item.classList.add('animate');
                         }, delay);

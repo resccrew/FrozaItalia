@@ -322,8 +322,8 @@ ul {
     margin-bottom: 20px;
     border-bottom: 1px solid #eee;.menu-item {
     opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.15s ease, transform 0.15s ease;
+    transform: translateY(5px);
+    transition: opacity 0.05s ease, transform 0.05s ease;
 }
 
 .menu-item.animate {
