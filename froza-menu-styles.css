@@ -24,6 +24,15 @@ ul {
 }
 
 /* Фото в полный размер */
+.photo-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: block;
+    clear: both;
+}
+
 .full-width-image {
     width: 100%;
     margin: 0;
@@ -105,6 +114,7 @@ ul {
     flex-direction: column;
     align-items: center;
     border-radius: 15px;
+    margin-bottom: 0;
 }
 
 .menu-title {
@@ -163,6 +173,10 @@ ul {
         align-items: center;
     }
     
+    .photo-container {
+        margin-top: 80px; /* Добавляем отступ сверху для мобильных устройств */
+    }
+    
     .menu-title {
         display: block;
         width: 100%;
@@ -217,7 +231,7 @@ ul {
     .site-header {
         padding: 10px 5%;
     }
-}
+
 
 /* Дополнительные стили для очень маленьких экранов */
 @media (max-width: 480px) {
