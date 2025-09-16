@@ -128,18 +128,18 @@ ul {
 @media (max-width: 768px) {
     /* Улучшенные стили для мобильного меню категорий */
     .menu-categories {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        max-width: 100%;
-        margin: 0;
-        border-radius: 0;
-        padding: 0;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
         z-index: 999;
         background-color: rgba(255, 255, 255, 0.98);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        width: 100%;
+        width: 100% !important;
         transition: all 0.3s ease-in-out;
         will-change: transform;
         backdrop-filter: blur(10px);
@@ -151,6 +151,7 @@ ul {
     .menu-title {
         display: block;
         width: 100%;
+        margin-top: 5px !important;
         text-align: center;
         margin-bottom: 10px;
         font-size: 18px;
@@ -159,6 +160,7 @@ ul {
         letter-spacing: 1.5px;
         text-transform: uppercase;
     }
+}
     
     .category-container {
         width: 100%;
