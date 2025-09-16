@@ -102,9 +102,9 @@
             function onItemIntersect(entries, observer) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Добавляем небольшую задержку для каждой карточки
+                        // Добавляем минимальную задержку для каждой карточки
                         const item = entry.target;
-                        const delay = Array.from(item.parentNode.children).indexOf(item) * 100;
+                        const delay = Array.from(item.parentNode.children).indexOf(item) * 50;
                         setTimeout(() => {
                             item.classList.add('animate');
                         }, delay);
