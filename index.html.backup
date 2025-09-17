@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Froza Italia - Cyfrowe menu restauracji włoskiej. Sprawdź nasze makarony, pizze, sałatki i inne specjały kuchni włoskiej.">
+    <meta name="keywords" content="Froza Italia, menu cyfrowe, restauracja włoska, pizza, makarony, sałatki, gnocchi">
+    <meta http-equiv="refresh" content="0;url=froza-menu.html">
+</head>
+<body>
+    <!-- Этот файл служит только для редиректа на основной файл меню и SEO-оптимизации -->
+    <p>Перенаправление на <a href="froza-menu.html">цифровое меню Froza Italia</a>...</p>
+</body>
+</html>
