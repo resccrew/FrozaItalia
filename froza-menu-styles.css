@@ -1,3 +1,16 @@
+/* Стили для индикатора прокрутки */
+#scroll-indicator {
+    height: 4px;
+    background-color: #CE2B37; /* Красный цвет итальянского флага */
+    width: 0%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+    z-index: 1002;
+    box-shadow: 0 0 5px rgba(206, 43, 55, 0.7);
+}
+
 /* Стили для анимации загрузки */
 #loading-screen {
     position: fixed;

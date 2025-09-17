@@ -28,6 +28,7 @@
             <button class="category-btn" data-target="napoje">Napoje</button>
             <button class="category-btn" data-target="alkohol">Alkohol</button>
         </div>
+        <div id="scroll-indicator"></div>
     </div>
     
     <div class="photo-container">
@@ -78,6 +79,17 @@
             const menuCategories = document.querySelector('.menu-categories');
             const menuSections = document.querySelectorAll('.menu-section');
             const menuItems = document.querySelectorAll('.menu-item');
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            
+            // Функция для обновления индикатора прокрутки
+            function updateScrollIndicator() {
+                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (window.scrollY / windowHeight) * 100;
+                scrollIndicator.style.width = scrolled + '%';
+            }
+            
+            // Обновляем индикатор при прокрутке
+            window.addEventListener('scroll', updateScrollIndicator);
 
             
             // Функция для центрирования активной кнопки
