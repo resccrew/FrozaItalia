@@ -245,14 +245,18 @@ ul {
 }
 
 .menu-title {
-    color: red;
+    background: linear-gradient(135deg, #009246 0%, #009246 33%, #ffffff 33%, #ffffff 66%, #CE2B37 66%, #CE2B37 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     text-align: center;
-    font-weight: bold;
-    font-size: 18px;
+    font-weight: 800;
+    font-size: 22px;
     margin-bottom: 15px;
     font-family: 'Montserrat', sans-serif;
     width: 100%;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .menu-categories::-webkit-scrollbar {
