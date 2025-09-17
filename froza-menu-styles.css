@@ -36,7 +36,7 @@
 
 .loading-bar.red {
     background-color: #ce2b37;
-    animation-delay: 0s;
+    animation-delay: 1.2s;
     box-shadow: 0 0 8px rgba(206, 43, 55, 0.5);
 }
 
@@ -49,7 +49,7 @@
 
 .loading-bar.green {
     background-color: #009246;
-    animation-delay: 1.2s;
+    animation-delay: 0s;
     box-shadow: 0 0 8px rgba(0, 146, 70, 0.5);
 }
 
