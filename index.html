@@ -140,8 +140,8 @@
             // IntersectionObserver для подсветки активной категории
             const observerOptions = {
                 root: null,
-                rootMargin: '-120px 0px -40% 0px',
-                threshold: 0.05
+                rootMargin: '-120px 0px -30% 0px',
+                threshold: 0.1
             };
             function onSectionIntersect(entries) {
                 entries.forEach(entry => {
@@ -767,5 +767,8 @@
     <div class="order-info" style="text-align: center; margin: 30px 0; font-weight: 600; font-size: 16px;">
         ZAMÓWIENIA SKŁADAMY PRZY BARZE.
     </div>
+    
+    <!-- Дополнительное пространство для лучшей работы на мобильных устройствах -->
+    <div style="height: 100px;"></div>
 </body>
 </html>
