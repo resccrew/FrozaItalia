@@ -92,6 +92,13 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    touch-action: pan-y;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
