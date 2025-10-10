@@ -34,8 +34,43 @@
     </div>
     
     <div class="photo-container">
-        <div class="full-width-image">
-            <img src="IMG_8467-2.JPG" alt="Froza Italia" class="full-size-image">
+        <div class="gallery-carousel">
+            <div class="gallery-slide active">
+                <img src="IMG_8467-2.JPG" alt="Froza Italia" class="gallery-image">
+            </div>
+            <div class="gallery-slide">
+                <img src="1.jpeg" alt="Froza Italia" class="gallery-image">
+            </div>
+            <div class="gallery-slide">
+                <img src="2.jpeg" alt="Froza Italia" class="gallery-image">
+            </div>
+            <div class="gallery-slide">
+                <img src="3.jpeg" alt="Froza Italia" class="gallery-image">
+            </div>
+            <div class="gallery-slide">
+                <img src="4.jpeg" alt="Froza Italia" class="gallery-image">
+            </div>
+            <div class="gallery-navigation">
+                <button class="gallery-nav prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="gallery-nav next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Полноэкранная галерея -->
+    <div class="fullscreen-gallery">
+        <div class="fullscreen-close"><i class="fas fa-times"></i></div>
+        <div class="fullscreen-container">
+            <img src="IMG_8467-2.JPG" alt="Froza Italia" class="fullscreen-image">
+            <img src="1.jpeg" alt="Froza Italia" class="fullscreen-image">
+            <img src="2.jpeg" alt="Froza Italia" class="fullscreen-image">
+            <img src="3.jpeg" alt="Froza Italia" class="fullscreen-image">
+            <img src="4.jpeg" alt="Froza Italia" class="fullscreen-image">
+            <img src="5.jpeg" alt="Froza Italia" class="fullscreen-image">
+            <img src="6.jpeg" alt="Froza Italia" class="fullscreen-image">
+            <img src="7.jpeg" alt="Froza Italia" class="fullscreen-image">
+            <img src="8.jpeg" alt="Froza Italia" class="fullscreen-image">
+            <img src="9.jpeg" alt="Froza Italia" class="fullscreen-image">
         </div>
     </div>
 
@@ -770,5 +805,91 @@
     
     <!-- Дополнительное пространство для лучшей работы на мобильных устройствах -->
     <div style="height: 100px;"></div>
+    <!-- JavaScript для галереи -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Элементы галереи
+            const slides = document.querySelectorAll('.gallery-slide');
+            const prevBtn = document.querySelector('.gallery-nav.prev');
+            const nextBtn = document.querySelector('.gallery-nav.next');
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            const fullscreenGallery = document.querySelector('.fullscreen-gallery');
+            const fullscreenClose = document.querySelector('.fullscreen-close');
+            
+            let currentSlide = 0;
+            
+            // Функция для переключения слайдов
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                
+                if (index < 0) {
+                    currentSlide = slides.length - 1;
+                } else if (index >= slides.length) {
+                    currentSlide = 0;
+                } else {
+                    currentSlide = index;
+                }
+                
+                slides[currentSlide].classList.add('active');
+            }
+            
+            // Обработчики для кнопок навигации
+            prevBtn.addEventListener('click', () => {
+                showSlide(currentSlide - 1);
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                showSlide(currentSlide + 1);
+            });
+            
+            // Открытие полноэкранной галереи при клике на изображение
+            galleryImages.forEach(image => {
+                image.addEventListener('click', () => {
+                    fullscreenGallery.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Закрытие полноэкранной галереи
+            fullscreenClose.addEventListener('click', () => {
+                fullscreenGallery.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Закрытие при клике вне изображения
+            fullscreenGallery.addEventListener('click', (e) => {
+                if (e.target === fullscreenGallery) {
+                    fullscreenGallery.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Свайп на мобильных устройствах
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            const galleryCarousel = document.querySelector('.gallery-carousel');
+            
+            galleryCarousel.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            
+            galleryCarousel.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 50) {
+                    // Свайп влево
+                    showSlide(currentSlide + 1);
+                }
+                if (touchEndX > touchStartX + 50) {
+                    // Свайп вправо
+                    showSlide(currentSlide - 1);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
