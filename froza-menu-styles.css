@@ -138,7 +138,7 @@ body {
 /* Для 7.jpeg в карусели: полностью помещать изображение */
 .gallery-image.contain-7 {
     object-fit: contain;
-    background-color: #000; /* заполняем пустые поля аккуратно */
+    background-color: #f8f8f8; /* фон как у страницы, чтобы убрать тёмные полосы */
 }
 
 .gallery-navigation {
