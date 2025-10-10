@@ -229,8 +229,7 @@ body {
 
     /* Чуть увеличим доступную высоту в полноэкранной галерее для 7.jpeg */
     .fullscreen-image.fit-7 {
-        max-height: 92svh;
-        max-height: 92vh;
+        max-height: 90vh; /* возвращаем исходное значение */
     }
 }
 
