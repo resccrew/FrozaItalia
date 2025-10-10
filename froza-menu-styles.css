@@ -135,6 +135,12 @@ body {
     object-fit: cover;
 }
 
+/* Для 7.jpeg в карусели: полностью помещать изображение */
+.gallery-image.contain-7 {
+    object-fit: contain;
+    background-color: #000; /* заполняем пустые поля аккуратно */
+}
+
 .gallery-navigation {
     position: absolute;
     width: 100%;
@@ -203,6 +209,14 @@ body {
     max-width: 90%;
     margin: 10px 0;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Для 7.jpeg в полноэкранной: вписать целиком по высоте экрана */
+.fullscreen-image.fit-7 {
+    max-width: none;
+    width: auto;
+    max-height: 90vh;
+    height: auto;
 }
 
 a {
