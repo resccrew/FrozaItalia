@@ -213,9 +213,8 @@ body {
 
 /* Для 7.jpeg в полноэкранной: вписать целиком по высоте экрана */
 .fullscreen-image.fit-7 {
-    max-width: none;
+    max-width: 90%;
     width: auto;
-    max-height: 90vh;
     height: auto;
 }
 
