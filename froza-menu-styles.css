@@ -219,6 +219,21 @@ body {
     height: auto;
 }
 
+/* Мобильные правки для галереи */
+@media (max-width: 768px) {
+    /* Увеличиваем высоту карусели, чтобы 7.jpeg помещалась целиком */
+    .gallery-carousel {
+        height: 65vh;
+        height: 65svh; /* учитываем адресную строку на iOS */
+    }
+
+    /* Чуть увеличим доступную высоту в полноэкранной галерее для 7.jpeg */
+    .fullscreen-image.fit-7 {
+        max-height: 92svh;
+        max-height: 92vh;
+    }
+}
+
 a {
     text-decoration: none;
     color: inherit;
